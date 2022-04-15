@@ -1,6 +1,6 @@
 /* width */
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 10px;
 }
   
   /* Track */
@@ -28,7 +28,8 @@ body{
     overflow: hidden;
     display: flex;
     height: 625px;
-    max-height: 625px
+    max-height: 625px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .spinner{
   position: absolute;
@@ -49,8 +50,77 @@ body{
     overflow-y: scroll;
 }
 
+#users{
+ padding: 10px;
+}
+
 #users > li{
-  border: 2px red solid;
+  position: relative;
+  margin-bottom: 50px;
+  padding: 15px;
+  border-radius:15px ;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+}
+
+#users > li:last-child{
+  margin-bottom: 0;
+}
+
+#users > li:hover{
+ 
+}
+
+.for-id{
+  font-size: 40px;
+  font-weight: bold;
+  width: 50px;
+  margin: 0;
+  padding: 0;
+  color: red;
+}
+
+.for-name{
+  position: absolute;
+  right: 50px;
+  top: 20px;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.for-username{
+  position: absolute;
+  right: 50px;
+  top: 45px;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+}
+
+#posts {
+  padding: 10px;
+}
+
+#posts > li{
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius:15px ;
+    border-bottom-left-radius: 1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+}
+
+#comments{
+  padding: 10px;
+}
+
+#comments > li{
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius:15px ;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
 }
 
 

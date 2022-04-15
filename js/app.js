@@ -2,9 +2,21 @@ const elUsers = document.querySelector("#users")
 const elPosts = document.querySelector("#posts")
 const elComments = document.querySelector("#comments")
 
+
+
 /////////////// USERS ///////////////
 elUsers.addEventListener("click", (evt) => {
-    getPosts()
+    if (evt.target.matches("li")) {
+        const id = evt.target.dataset.userData
+
+        // Loader
+        const loader = document.createElement("img")
+        loader.setAttribute("src", "./Spinner.svg")
+        loader.setAttribute("class", "spinner")
+        elPosts.appendChild(loader)
+
+        getPosts(id)
+    }
 })
 
 // RENDER USERS
@@ -25,98 +37,119 @@ function renderUsers(arr, element) {
         // Name and Id
         const id = document.createElement("p")
         id.textContent = item.id
+        id.setAttribute("class", "for-id")
 
         const name = document.createElement("p")
         name.textContent = item.name
+        name.setAttribute("class", "for-name")
 
 
         // Contact
         const contact = document.createElement("p")
         contact.textContent = "Contact:"
         contact.style.fontWeight = "bold"
+        contact.style.fontSize = "20px"
+        contact.style.fontStyle = "italic"
+        contact.style.textAlign = "center"
 
         const userName = document.createElement("p")
-        userName.textContent = item.username
+        userName.textContent = `Username: ${item.username}`
+        userName.setAttribute("class", "for-username")
+
+        const imgEmail = document.createElement("img")
+        imgEmail.setAttribute("src", "https://www.svgrepo.com/show/56752/email.svg")
+        imgEmail.style.width = "30px"
+        imgEmail.style.height = "30px"
 
         const email = document.createElement("a")
-        email.href = item.email
-        email.textContent = item.email
+        email.setAttribute("href", `mailto:${item.email}`)
         email.style.marginRight = "10px"
+        email.appendChild(imgEmail)
+
+        const imgWebsite = document.createElement("img")
+        imgWebsite.setAttribute("src", "./web.svg")
+        imgWebsite.style.width = "30px"
+        imgWebsite.style.height = "30px"
 
         const website = document.createElement("a")
-        website.href = item.website
-        website.textContent = item.website
+        website.setAttribute("href", item.website)
         website.style.marginRight = "10px"
+        website.appendChild(imgWebsite)
 
-        const img = document.createElement("img")
-        img.setAttribute("src", "https://www.svgrepo.com/show/152978/phone-call.svg")
-        img.style.width = "20px"
-        img.style.height = "20px"
+        const imgPhone = document.createElement("img")
+        imgPhone.setAttribute("src", "https://www.svgrepo.com/show/152978/phone-call.svg")
+        imgPhone.style.width = "30px"
+        imgPhone.style.height = "30px"
 
         const phone = document.createElement("a")
-        phone.href = item.phone
-        phone.setAttribute("href", item.phone)
-        phone.setAttribute("target", "_blank")
+        phone.setAttribute("href", `tel:${item.phone}`)
+        phone.appendChild(imgPhone)
 
-        phone.appendChild(img)
+        const wrapperContact = document.createElement("div")
+        wrapperContact.style.display = "flex"
+        wrapperContact.style.justifyContent = "space-around"
+        wrapperContact.appendChild(email)
+        wrapperContact.appendChild(website)
+        wrapperContact.appendChild(phone)
 
 
         // Company
         const company = document.createElement("p")
         company.textContent = "Company:"
         company.style.fontWeight = "bold"
+        company.style.fontSize = "20px"
+        company.style.fontStyle = "italic"
+        company.style.textAlign = "center"
 
         const companyName = document.createElement("p")
-        companyName.textContent = item.company.name
+        companyName.textContent = `Name: ${item.company.name}`
 
         const catchPhrase = document.createElement("p")
-        catchPhrase.textContent = item.company.catchPhrase
+        catchPhrase.textContent = `catchPhrase: ${item.company.catchPhrase}`
 
         const bs = document.createElement("p")
-        bs.textContent = item.company.bs
+        bs.textContent = `bs: ${item.company.bs}`
 
 
         //Address
         const address = document.createElement("p")
-        address.textContent = "Address"
+        address.textContent = "Address:"
         address.style.fontWeight = "bold"
+        address.style.fontSize = "20px"
+        address.style.fontStyle = "italic"
+        address.style.textAlign = "center"
 
         const street = document.createElement("p")
-        street.textContent = item.address.street
+        street.textContent = `Street: ${item.address.street}`
 
         const suite = document.createElement("p")
-        suite.textContent = item.address.suite
+        suite.textContent = `Suite: ${item.address.suite}`
 
         const city = document.createElement("p")
-        city.textContent = item.address.city
+        city.textContent = `City: ${item.address.city}`
 
         const zipcode = document.createElement("p")
-        zipcode.textContent = item.address.zipcode
+        zipcode.textContent = `Zipcode: ${item.address.zipcode}`
 
         const lat = item.address.geo.lat
         const lng = item.address.geo.lng
 
         const locationImg = document.createElement("img")
-        locationImg.setAttribute("src", "https://img.icons8.com/color/2x/marker.png")
-        locationImg.style.width = "20px"
-        locationImg.style.height = "20px"
+        locationImg.setAttribute("src", "./location.svg")
+        locationImg.style.width = "30px"
+        locationImg.style.height = "30px"
 
         const location = document.createElement("a")
-        location.textContent = "Location"
+        location.style.fontSize = "20px"
         location.setAttribute("target", "_blank")
         location.setAttribute("href", `https://www.google.com/maps/place/${lat},${lng}`)
         location.appendChild(locationImg)
+        wrapperContact.appendChild(location)
 
 
         // Add elements to DOM
         usersList.appendChild(id)
         usersList.appendChild(name)
-
-        usersList.appendChild(contact)
-        usersList.appendChild(userName)
-        usersList.appendChild(email)
-        usersList.appendChild(website)
-        usersList.appendChild(phone)
 
         usersList.appendChild(company)
         usersList.appendChild(companyName)
@@ -128,7 +161,10 @@ function renderUsers(arr, element) {
         usersList.appendChild(suite)
         usersList.appendChild(city)
         usersList.appendChild(zipcode)
-        usersList.appendChild(location)
+
+        usersList.appendChild(contact)
+        usersList.appendChild(userName)
+        usersList.appendChild(wrapperContact)
 
         fragmentUsers.appendChild(usersList)
     });
@@ -145,16 +181,27 @@ function renderUsers(arr, element) {
 })()
 
 
+
 /////////////// POSTS ///////////////
 elPosts.addEventListener("click", (evt) => {
+    if (evt.target.matches("li")) {
+        const id = evt.target.dataset.postData
 
+        // Loader
+        const loader = document.createElement("img")
+        loader.setAttribute("src", "./Spinner.svg")
+        loader.setAttribute("class", "spinner")
+        elComments.appendChild(loader)
+
+        getComments(id)
+    }
 })
 
 // RENDER POSTS
 function renderPosts(arr, element) {
     element.innerHTML = null
 
-    elPosts.classList.add("users")
+    elPosts.classList.add("posts")
 
     const fragmentPosts = document.createDocumentFragment()
 
@@ -162,7 +209,7 @@ function renderPosts(arr, element) {
 
         // New Item
         const postsList = document.createElement("li")
-        postsList.dataset.userData = item.id
+        postsList.dataset.postData = item.id
 
         // Title
         const title = document.createElement("h3")
@@ -185,8 +232,8 @@ function renderPosts(arr, element) {
 }
 
 // FETCH POSTS 
-async function getPosts() {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+async function getPosts(id) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
     const data = await res.json()
 
     renderPosts(data, elPosts)
@@ -194,8 +241,57 @@ async function getPosts() {
 
 
 
+/////////////// COMMENTS ///////////////
+
+// RENDER COMMENTS
+function renderComments(arr, element) {
+    element.innerHTML = null
+
+    elComments.classList.add("comments")
+
+    const fragmentComments = document.createDocumentFragment()
+
+    arr.forEach(item => {
+
+        // New Item
+        const commentsList = document.createElement("li")
+        commentsList.dataset.commentData = item.id
+
+        // Title
+        const name = document.createElement("h3")
+        name.textContent = item.name
+
+        // Email
+        const imgEmail = document.createElement("img")
+        imgEmail.setAttribute("src", "https://www.svgrepo.com/show/56752/email.svg")
+        imgEmail.style.width = "30px"
+        imgEmail.style.height = "30px"
+
+        const email = document.createElement("a")
+        email.setAttribute("href", `mailto:${item.email}`)
+        email.appendChild(imgEmail)
+
+        // Body
+        const body = document.createElement("p")
+        body.textContent = item.body
 
 
+        // Add elements to DOM
+        commentsList.appendChild(name)
+        commentsList.appendChild(email)
+        commentsList.appendChild(body)
 
+        fragmentComments.appendChild(commentsList)
 
+    })
 
+    element.appendChild(fragmentComments)
+}
+
+// FETCH COMMENTS
+async function getComments(id) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
+    const data = await res.json()
+
+    renderComments(data, elComments)
+}
