@@ -8,6 +8,7 @@ const elComments = document.querySelector("#comments")
 elUsers.addEventListener("click", (evt) => {
     if (evt.target.matches("li")) {
         const id = evt.target.dataset.userData
+        elComments.innerHTML = null
 
         // Loader
         const loader = document.createElement("img")
